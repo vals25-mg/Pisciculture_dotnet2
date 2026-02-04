@@ -1,0 +1,57 @@
+dotnet ef dbcontext scaffold \
+"Host=localhost;Port=5432;Database=pisciculture;Username=drh;Password=123" \
+Npgsql.EntityFrameworkCore.PostgreSQL \
+--output-dir Models \
+--context-dir Models \
+--context PiscicultureDbContext \
+
+
+dotnet ef dbcontext scaffold \
+"Host=localhost;Port=5432;Database=terre_mada;Username=drh;Password=123" \
+Npgsql.EntityFrameworkCore.PostgreSQL \
+--output-dir Models \
+--context-dir Data \
+--context TerreMadaDbContext \
+--table client \
+--force
+
+## Scaffold controller
+dotnet aspnet-codegenerator controller \
+-name EntreVagueController \
+-m EntreVague \
+-dc PiscicultureDbContext \
+--relativeFolderPath Controllers \
+--useDefaultLayout \
+--referenceScriptLibraries
+
+dotnet aspnet-codegenerator controller \
+-name AlimentController \
+-m Aliment \
+-dc PiscicultureDbContext \
+--relativeFolderPath Controllers \
+--useDefaultLayout \
+--referenceScriptLibraries
+
+dotnet aspnet-codegenerator controller \
+-name DoboController \
+-m Dobo \
+-dc PiscicultureDbContext \
+--relativeFolderPath Controllers \
+--useDefaultLayout \
+--referenceScriptLibraries
+
+dotnet aspnet-codegenerator controller \
+-name NourrissageController \
+-m Nourrissage \
+-dc PiscicultureDbContext \
+--relativeFolderPath Controllers \
+--useDefaultLayout \
+--referenceScriptLibraries
+
+dotnet aspnet-codegenerator controller \
+-name RaceController \
+-m Race \
+-dc PiscicultureDbContext \
+--relativeFolderPath Controllers \
+--useDefaultLayout \
+--referenceScriptLibraries
