@@ -1,0 +1,59 @@
+@model IEnumerable<Pisciculture_dotnet2.Models.EntreVague>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateEntree)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombrePoissons)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PoidsInitialePoisson)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdDoboNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdRaceNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateEntree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombrePoissons)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PoidsInitialePoisson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdDoboNavigation.IdDobo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdRaceNavigation.IdRace)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdEntreVague">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdEntreVague">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdEntreVague">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

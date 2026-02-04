@@ -1,0 +1,53 @@
+@model IEnumerable<Pisciculture_dotnet2.Models.Race>
+
+@{
+    ViewData["Title"] = "Race";
+}
+
+<h1>Race</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NomRace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrixAchatKg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrixVenteKg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PoidsMax)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomRace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrixAchatKg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrixVenteKg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PoidsMax)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdRace">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdRace">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdRace">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

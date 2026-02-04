@@ -1,0 +1,51 @@
+@model Pisciculture_dotnet2.Models.EntreVague
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>EntreVague</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdDobo" class="control-label"></label>
+                <select asp-for="IdDobo" class ="form-control" asp-items="ViewBag.IdDobo"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateEntree" class="control-label"></label>
+                <input asp-for="DateEntree" class="form-control" />
+                <span asp-validation-for="DateEntree" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdRace" class="control-label"></label>
+                <select asp-for="IdRace" class ="form-control" asp-items="ViewBag.IdRace"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NombrePoissons" class="control-label"></label>
+                <input asp-for="NombrePoissons" class="form-control" />
+                <span asp-validation-for="NombrePoissons" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PoidsInitialePoisson" class="control-label"></label>
+                <input asp-for="PoidsInitialePoisson" class="form-control" />
+                <span asp-validation-for="PoidsInitialePoisson" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

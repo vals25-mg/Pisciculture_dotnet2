@@ -1,0 +1,49 @@
+@model Pisciculture_dotnet2.Models.Aliment
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Aliment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdAliment" />
+            <div class="form-group">
+                <label asp-for="NomAliment" class="control-label"></label>
+                <input asp-for="NomAliment" class="form-control" />
+                <span asp-validation-for="NomAliment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PourcentageProteine" class="control-label"></label>
+                <input asp-for="PourcentageProteine" class="form-control" />
+                <span asp-validation-for="PourcentageProteine" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PourcentageGlucide" class="control-label"></label>
+                <input asp-for="PourcentageGlucide" class="form-control" />
+                <span asp-validation-for="PourcentageGlucide" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PrixAchatKg" class="control-label"></label>
+                <input asp-for="PrixAchatKg" class="form-control" />
+                <span asp-validation-for="PrixAchatKg" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
