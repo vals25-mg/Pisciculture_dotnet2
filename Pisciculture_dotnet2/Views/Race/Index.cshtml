@@ -7,22 +7,22 @@
 <h1>Race</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Ajouter</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NomRace)
+                Nom
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PrixAchatKg)
+                Prix Achat Kg (Ar)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PrixVenteKg)
+                Prix Vente Kg (Ar)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PoidsMax)
+                PoidsMax (Kg)
             </th>
             <th></th>
         </tr>
@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.PoidsMax)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdRace">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdRace">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdRace">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.IdRace">Modifier</a> 
+                @* <a asp-action="Details" asp-route-id="@item.IdRace">Details</a> | *@
+                @* <a asp-action="Delete" asp-route-id="@item.IdRace">Delete</a> *@
             </td>
         </tr>
 }

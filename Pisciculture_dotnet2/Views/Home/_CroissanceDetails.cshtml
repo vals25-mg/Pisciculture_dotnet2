@@ -1,0 +1,38 @@
+@model List<CroissancePoissonDobo>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-sm table-bordered mb-0">
+        <thead class="table-secondary">
+        <tr>
+            <th>Date</th>
+            <th>Poids Reçu (kg)</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var croissance in Model)
+        {
+            <tr>
+                <td>@croissance.DateCroissance.Value.ToString("dd/MM/yyyy")</td>
+                <td><strong>@(croissance.PoidsRecuKg?.ToString("N2") ?? "0.00")</strong></td>
+            </tr>
+        }
+        </tbody>
+        <tfoot class="table-warning">
+        <tr>
+            <td><strong>Total Poids Reçu</strong></td>
+            <td colspan="2">
+                <strong class="text-success">
+                    @Model.Sum(c => c.PoidsRecuKg ?? 0).ToString("N2") kg
+                </strong>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+}
+else
+{
+    <div class="alert alert-info mb-0">
+        Aucune donnée de croissance disponible pour ce poisson.
+    </div>
+}

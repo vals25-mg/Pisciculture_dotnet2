@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Pisciculture_dotnet2.Models;
 using Pisciculture_dotnet2.Utilities;
 
@@ -24,12 +25,52 @@ public class HomeController : Controller
 
         ViewBag.DateNourrissage = dateNourrissage;
         ViewBag.Benefice = benefice;
+        ViewBag.CA = chiffresAffaires.Sum(x=>x.ChiffreDaffaires);
 
         var model = (ChiffresAffaires: chiffresAffaires, Depenses: depenses);
 
         return View(model);
     }
+    
+    public IActionResult PoissonsDobo(string idDobo, DateTime? dateFiltre)
+    {
+        DateOnly? dateOnly = dateFiltre.HasValue 
+            ? DateOnly.FromDateTime(dateFiltre.Value) 
+            : null;
+    
+        ViewBag.DateFiltre = dateFiltre;
+        ViewBag.IdDobo = idDobo;
+    
+        // Récupérer la liste des dobos pour le dropdown
+        ViewBag.Dobos = new SelectList(_context.Dobos, "IdDobo", "IdDobo", idDobo);
+    
+        List<PoissonPoidsInfo> poissons = new List<PoissonPoidsInfo>();
+    
+        if (!string.IsNullOrEmpty(idDobo))
+        {
+            poissons = PoissonDoboUtilities.getAllPoissonsPoidsByIdDobo(_context, idDobo, dateOnly);
+        }
+    
+        // Calculer les totaux
+        ViewBag.TotalPoidsInitial = poissons.Sum(p => p.PoidsInitialKg);
+        ViewBag.TotalPoidsRecu = poissons.Sum(p => p.PoidsTotalRecuKg);
+        ViewBag.TotalPoidsActuel = poissons.Sum(p => p.PoidsActuelleKg);
+        ViewBag.TotalChiffreAffaires = poissons.Sum(p => p.ChiffreDaffaires);
+        ViewBag.TotalPrixAchat = poissons.Sum(p => p.PrixAchatKg * p.PoidsActuelleKg);
+    
+        return View(poissons);
+    }
 
+    public IActionResult GetCroissanceDetails(string idPoissonDobo, DateTime? dateFiltre)
+    {
+        DateOnly? dateOnly = dateFiltre.HasValue 
+            ? DateOnly.FromDateTime(dateFiltre.Value) 
+            : null;
+    
+        var croissances = CroissancePoissonDoboUtilities.getCroissancesByIdPoissonDobo(_context, idPoissonDobo, dateOnly);
+    
+        return PartialView("_CroissanceDetails", croissances);
+    }
     public IActionResult Privacy()
     {
         return View();

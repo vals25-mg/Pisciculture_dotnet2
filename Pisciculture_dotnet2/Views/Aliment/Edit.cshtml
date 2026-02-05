@@ -14,34 +14,34 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdAliment" />
             <div class="form-group">
-                <label asp-for="NomAliment" class="control-label"></label>
+                <label asp-for="NomAliment" class="control-label">Nom</label>
                 <input asp-for="NomAliment" class="form-control" />
                 <span asp-validation-for="NomAliment" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PourcentageProteine" class="control-label"></label>
-                <input asp-for="PourcentageProteine" class="form-control" />
+                <label asp-for="PourcentageProteine" class="control-label">Pourcentage de Proteine (%)</label>
+                <input asp-for="PourcentageProteine" type="number" class="form-control" />
                 <span asp-validation-for="PourcentageProteine" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PourcentageGlucide" class="control-label"></label>
-                <input asp-for="PourcentageGlucide" class="form-control" />
+                <label asp-for="PourcentageGlucide" class="control-label">Pourcentage de Glucide (%)</label>
+                <input asp-for="PourcentageGlucide" type="number" class="form-control" />
                 <span asp-validation-for="PourcentageGlucide" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PrixAchatKg" class="control-label"></label>
-                <input asp-for="PrixAchatKg" class="form-control" />
+                <label asp-for="PrixAchatKg" class="control-label">Prix d'Achat du kg (Ar)</label>
+                <input asp-for="PrixAchatKg" type="number" class="form-control" />
                 <span asp-validation-for="PrixAchatKg" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group mt-3">
+                <input type="submit" value="Modifier" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Revenir à la liste</a>
 </div>
 
 @section Scripts {

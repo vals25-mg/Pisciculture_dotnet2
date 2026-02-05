@@ -1,0 +1,218 @@
+@model List<PoissonPoidsInfo>
+
+@{
+    ViewData["Title"] = "Poissons par Dobo";
+}
+
+<div class="container">
+    <h2 class="mb-4">Suivi des Poissons par Dobo</h2>
+
+    <form method="get" asp-action="PoissonsDobo" class="mb-4">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label for="idDobo" class="form-label">Sélectionner un Dobo:</label>
+                <select id="idDobo"
+                        name="idDobo"
+                        class="form-select"
+                        asp-items="@ViewBag.Dobos">
+                    <option value="">-- Choisir un dobo --</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="dateFiltre" class="form-label">Filtrer par date:</label>
+                <input type="date"
+                       id="dateFiltre"
+                       name="dateFiltre"
+                       class="form-control"
+                       value="@ViewBag.DateFiltre?.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary me-2">
+                    <i class="bi bi-search"></i> Filtrer
+                </button>
+                <a asp-action="PoissonsDobo" class="btn btn-secondary">
+                    <i class="bi bi-arrow-counterclockwise"></i> Réinitialiser
+                </a>
+            </div>
+        </div>
+    </form>
+
+    @if (!string.IsNullOrEmpty(ViewBag.IdDobo))
+    {
+        @if (Model != null && Model.Any())
+        {
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Récapitulatif - Dobo @ViewBag.IdDobo</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h6 class="text-muted">Poids Poissons Initials Total</h6>
+                                <h4>@ViewBag.TotalPoidsInitial.ToString("N2") kg</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h6 class="text-muted">Poids Poissons Reçu Total</h6>
+                                <h4>@ViewBag.TotalPoidsRecu.ToString("N2") kg</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h6 class="text-muted">Poids Poissons Actuels Total</h6>
+                                <h4>@ViewBag.TotalPoidsActuel.ToString("N2") kg</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="text-center">
+                                <h6 class="text-muted">CA Potentiel</h6>
+                                <h4 class="text-success">@ViewBag.TotalChiffreAffaires.ToString("N2") Ar</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Race</th>
+                        <th>Poids Initial (kg)</th>
+                        <th>Poids Reçu (kg)</th>
+                        <th>Poids Actuel (kg)</th>
+                        <th>Poids Max (kg)</th>
+                        <th>Prix Achat/kg</th>
+                        <th>Prix Vente/kg</th>
+                        <th>CA Potentiel</th>
+                        <th>CA - Prix Achat</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var poisson in Model)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@poisson.NomRace</strong>
+                                <br />
+                                <small class="text-muted">@poisson.IdPoissonDobo</small>
+                            </td>
+                            <td>@poisson.PoidsInitialKg.ToString("N2")</td>
+                            <td>@poisson.PoidsTotalRecuKg.ToString("N2")</td>
+                            <td><strong>@poisson.PoidsActuelleKg.ToString("N2")</strong></td>
+                            <td>@poisson.PoidsMaxKg.ToString("N2")</td>
+                            <td>@poisson.PrixAchatKg.ToString("N2") Ar</td>
+                            <td>@poisson.PrixVenteKg.ToString("N2") Ar</td>
+                            <td class="text-success">
+                                <strong>@poisson.ChiffreDaffaires.ToString("N2") Ar</strong>
+                            </td>
+                            <td class="text-primary">
+                                <strong>@poisson.ChiffreDaffairesMoinsPrixAchat.ToString("N2") Ar</strong>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-info toggle-croissance"
+                                        data-poisson-id="@poisson.IdPoissonDobo">
+                                    <i class="bi bi-eye"></i> Voir croissance
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="croissance-details" id="croissance-@poisson.IdPoissonDobo" style="display: none;">
+                            <td colspan="10" class="p-0">
+                                <div class="p-3 bg-light">
+                                    <h6 class="text-primary mb-3">
+                                        <i class="bi bi-graph-up"></i> Détails de croissance - @poisson.NomRace (@poisson.IdPoissonDobo)
+                                    </h6>
+                                    <div class="loading-spinner text-center py-3">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Chargement...</span>
+                                        </div>
+                                    </div>
+                                    <div class="croissance-content" style="display: none;"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                    <tfoot class="table-info">
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td><strong>@ViewBag.TotalPoidsInitial.ToString("N2")</strong></td>
+                        <td><strong>@ViewBag.TotalPoidsRecu.ToString("N2")</strong></td>
+                        <td><strong>@ViewBag.TotalPoidsActuel.ToString("N2")</strong></td>
+                        <td colspan="4"></td>
+                        <td class="text-success">
+                            <strong>@ViewBag.TotalChiffreAffaires.ToString("N2") Ar</strong>
+                        </td>
+                        <td class="text-primary">
+                            <strong>@((ViewBag.TotalChiffreAffaires - ViewBag.TotalPrixAchat).ToString("N2")) Ar</strong>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> Aucun poisson trouvé pour ce dobo.
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle"></i> Veuillez sélectionner un dobo pour afficher les données.
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('.toggle-croissance').click(function() {
+                var poissonId = $(this).data('poisson-id');
+                var detailsRow = $('#croissance-' + poissonId);
+                var button = $(this);
+
+                if (detailsRow.is(':visible')) {
+                    // Masquer les détails
+                    detailsRow.hide();
+                    button.html('<i class="bi bi-eye"></i> Voir croissance');
+                } else {
+                    // Afficher les détails
+                    detailsRow.show();
+                    button.html('<i class="bi bi-eye-slash"></i> Masquer');
+
+                    // Charger les données si pas déjà chargées
+                    var content = detailsRow.find('.croissance-content');
+                    if (content.is(':empty')) {
+                        var dateFiltre = $('#dateFiltre').val();
+
+                        $.ajax({
+                            url: '@Url.Action("GetCroissanceDetails", "Home")',
+                            type: 'GET',
+                            data: {
+                                idPoissonDobo: poissonId,
+                                dateFiltre: dateFiltre
+                            },
+                            success: function(response) {
+                                detailsRow.find('.loading-spinner').hide();
+                                content.html(response).show();
+                            },
+                            error: function() {
+                                detailsRow.find('.loading-spinner').hide();
+                                content.html('<div class="alert alert-danger">Erreur lors du chargement des données</div>').show();
+                            }
+                        });
+                    } else {
+                        detailsRow.find('.loading-spinner').hide();
+                        content.show();
+                    }
+                }
+            });
+        });
+    </script>
+}
