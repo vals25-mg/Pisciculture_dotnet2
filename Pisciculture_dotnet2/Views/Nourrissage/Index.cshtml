@@ -4,50 +4,53 @@
     ViewData["Title"] = "Nourrissage";
 }
 
-<h1>Nourrissage</h1>
+<h4> Historique Nourrissage</h4>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.PoidsAliments)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateNourrissage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdAlimentNavigation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdDoboNavigation)
-            </th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>
+            Dobo
+        </th>
+        <th>
+            Aliment
+        </th>
+        <th>
+            Poids (kg)
+        </th>
+        <th>
+            Date Nourrissage
+        </th>
+
+        @* <th></th> *@
+    </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.PoidsAliments)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateNourrissage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdAlimentNavigation.IdAliment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdDoboNavigation.IdDobo)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdNourrissage">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdNourrissage">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdNourrissage">Delete</a>
-            </td>
-        </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdDoboNavigation.IdDobo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdAlimentNavigation.IdAliment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PoidsAliments)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateNourrissage)
+        </td>
+        
+
+        @* <td> *@
+        @*     <a asp-action="Edit" asp-route-id="@item.IdNourrissage">Edit</a> | *@
+        @*     <a asp-action="Details" asp-route-id="@item.IdNourrissage">Details</a> | *@
+        @*     <a asp-action="Delete" asp-route-id="@item.IdNourrissage">Delete</a> *@
+        @* </td> *@
+    </tr>
 }
     </tbody>
 </table>

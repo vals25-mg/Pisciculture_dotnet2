@@ -55,3 +55,21 @@ dotnet aspnet-codegenerator controller \
 --relativeFolderPath Controllers \
 --useDefaultLayout \
 --referenceScriptLibraries
+
+
+## Scaffold View:
+dotnet ef dbcontext scaffold \
+"Host=localhost;Port=5432;Database=pisciculture;Username=drh;Password=123" \
+Npgsql.EntityFrameworkCore.PostgreSQL \
+--output-dir Models \
+--context-dir Data \
+--context PiscicultureDbContext \
+--table v_nourrissage
+
+dotnet ef dbcontext scaffold \
+"Host=localhost;Port=5432;Database=pisciculture;Username=drh;Password=123" \
+Npgsql.EntityFrameworkCore.PostgreSQL \
+--output-dir Models \
+--context-dir Data \
+--context PiscicultureDbContext \
+--table v_nourissage_prix_aliment

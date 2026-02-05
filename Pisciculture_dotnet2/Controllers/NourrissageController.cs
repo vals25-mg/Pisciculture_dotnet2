@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pisciculture_dotnet2.Models;
+using Pisciculture_dotnet2.Utilities;
 
 namespace Pisciculture_dotnet2.Controllers
 {
@@ -48,7 +49,7 @@ namespace Pisciculture_dotnet2.Controllers
         // GET: Nourrissage/Create
         public IActionResult Create()
         {
-            ViewData["IdAliment"] = new SelectList(_context.Aliments, "IdAliment", "IdAliment");
+            ViewData["IdAliment"] = new SelectList(_context.Aliments, "IdAliment", "NomAliment");
             ViewData["IdDobo"] = new SelectList(_context.Dobos, "IdDobo", "IdDobo");
             return View();
         }
@@ -58,15 +59,14 @@ namespace Pisciculture_dotnet2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdNourrissage,IdAliment,IdDobo,PoidsAliments,DateNourrissage")] Nourrissage nourrissage)
+        public IActionResult Create([Bind("IdNourrissage,IdAliment,IdDobo,PoidsAliments,DateNourrissage")] Nourrissage nourrissage)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(nourrissage);
-                await _context.SaveChangesAsync();
+                NourrissageUtilities.nourrirPoissons(_context,nourrissage);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdAliment"] = new SelectList(_context.Aliments, "IdAliment", "IdAliment", nourrissage.IdAliment);
+            ViewData["IdAliment"] = new SelectList(_context.Aliments, "IdAliment", "NomAliment", nourrissage.IdAliment);
             ViewData["IdDobo"] = new SelectList(_context.Dobos, "IdDobo", "IdDobo", nourrissage.IdDobo);
             return View(nourrissage);
         }

@@ -11,7 +11,7 @@ public partial class CroissancePoissonDobo
 
     public double? PoidsRecuKg { get; set; }
 
-    public DateTime? DateHeureCroissance { get; set; }
+    public DateOnly? DateCroissance { get; set; }
 
     public virtual PoissonDobo? IdPoissonDoboNavigation { get; set; }
 }

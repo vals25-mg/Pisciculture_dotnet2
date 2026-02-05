@@ -28,6 +28,8 @@ public partial class PiscicultureDbContext : DbContext
     public virtual DbSet<Nourrissage> Nourrissages { get; set; }
 
     public virtual DbSet<PoissonDobo> PoissonDobos { get; set; }
+    public virtual DbSet<VNourrissage> VNourrissages { get; set; }
+    public virtual DbSet<VNourissagePrixAliment> VNourissagePrixAliments { get; set; }
 
     public virtual DbSet<Race> Races { get; set; }
     
@@ -57,9 +59,8 @@ public partial class PiscicultureDbContext : DbContext
             entity.ToTable("croissance_poisson_dobo");
 
             entity.Property(e => e.IdCroissancePoissonDobo).HasColumnName("id_croissance_poisson_dobo");
-            entity.Property(e => e.DateHeureCroissance)
-                .HasColumnType("timestamp without time zone")
-                .HasColumnName("date_heure_croissance");
+            entity.Property(e => e.DateCroissance)
+                .HasColumnName("date_croissance");
             entity.Property(e => e.IdPoissonDobo)
                 .HasMaxLength(20)
                 .HasColumnName("id_poisson_dobo");
@@ -187,6 +188,47 @@ public partial class PiscicultureDbContext : DbContext
             entity.Property(e => e.PoidsMax).HasColumnName("poids_max");
             entity.Property(e => e.PrixAchatKg).HasColumnName("prix_achat_kg");
             entity.Property(e => e.PrixVenteKg).HasColumnName("prix_vente_kg");
+        });
+        
+        modelBuilder.Entity<VNourrissage>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("v_nourrissage");
+
+            entity.Property(e => e.DateNourrissage).HasColumnName("date_nourrissage");
+            entity.Property(e => e.IdAliment).HasColumnName("id_aliment");
+            entity.Property(e => e.IdDobo)
+                .HasMaxLength(30)
+                .HasColumnName("id_dobo");
+            entity.Property(e => e.IdNourrissage).HasColumnName("id_nourrissage");
+            entity.Property(e => e.NomAliment)
+                .HasMaxLength(100)
+                .HasColumnName("nom_aliment");
+            entity.Property(e => e.PoidsAliments).HasColumnName("poids_aliments");
+            entity.Property(e => e.PourcentageGlucide).HasColumnName("pourcentage_glucide");
+            entity.Property(e => e.PourcentageProteine).HasColumnName("pourcentage_proteine");
+            entity.Property(e => e.PrixAchatKg).HasColumnName("prix_achat_kg");
+        });
+        
+        modelBuilder.Entity<VNourissagePrixAliment>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("v_nourissage_prix_aliment");
+
+            entity.Property(e => e.DateNourrissage).HasColumnName("date_nourrissage");
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.IdAliment).HasColumnName("id_aliment");
+            entity.Property(e => e.IdDobo)
+                .HasMaxLength(30)
+                .HasColumnName("id_dobo");
+            entity.Property(e => e.NomAliment)
+                .HasMaxLength(100)
+                .HasColumnName("nom_aliment");
+            entity.Property(e => e.PoidsAliments).HasColumnName("poids_aliments");
+            entity.Property(e => e.PrixAchatKg).HasColumnName("prix_achat_kg");
+            entity.Property(e => e.PrixTotal).HasColumnName("prix_total");
         });
         modelBuilder.HasSequence("seq_entree_vague");
         modelBuilder.HasSequence("seq_nourrissage");
