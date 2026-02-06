@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pisciculture_dotnet2.Models;
+using Pisciculture_dotnet2.Utilities;
 
 namespace Pisciculture_dotnet2.Controllers
 {
@@ -24,6 +25,29 @@ namespace Pisciculture_dotnet2.Controllers
             return View(await _context.Dobos.ToListAsync());
         }
 
+        // POST: Dobo/Reinitialiser/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Reinitialiser(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                DoboUtilities.ReinitialiserDobo(_context, id);
+                TempData["SuccessMessage"] = $"Le dobo {id} a été réinitialisé avec succès.";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = $"Erreur lors de la réinitialisation : {ex.Message}";
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+        
         // GET: Dobo/Details/5
         public async Task<IActionResult> Details(string id)
         {

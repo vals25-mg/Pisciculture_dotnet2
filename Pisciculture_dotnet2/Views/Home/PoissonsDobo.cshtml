@@ -47,25 +47,31 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
+                            <div class="text-center">
+                                <h6 class="text-muted">Nombre Poissons</h6>
+                                <h4>@ViewBag.NombrePoissonsTotal.ToString()</h4>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
                             <div class="text-center">
                                 <h6 class="text-muted">Poids Poissons Initials Total</h6>
                                 <h4>@ViewBag.TotalPoidsInitial.ToString("N2") kg</h4>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="text-center">
                                 <h6 class="text-muted">Poids Poissons Reçu Total</h6>
                                 <h4>@ViewBag.TotalPoidsRecu.ToString("N2") kg</h4>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="text-center">
                                 <h6 class="text-muted">Poids Poissons Actuels Total</h6>
                                 <h4>@ViewBag.TotalPoidsActuel.ToString("N2") kg</h4>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="text-center">
                                 <h6 class="text-muted">CA Potentiel</h6>
                                 <h4 class="text-success">@ViewBag.TotalChiffreAffaires.ToString("N2") Ar</h4>
@@ -102,7 +108,15 @@
                             </td>
                             <td>@poisson.PoidsInitialKg.ToString("N2")</td>
                             <td>@poisson.PoidsTotalRecuKg.ToString("N2")</td>
-                            <td><strong>@poisson.PoidsActuelleKg.ToString("N2")</strong></td>
+                            <td>
+                                <strong>@poisson.PoidsActuelleKg.ToString("N2")</strong>
+                                <br/>
+                                <div class="progress" style="height: 10px;">
+                                    <div class="progress-bar bg-@poisson.getColourBgProgressBar()" role="progressbar" 
+                                         style="width: @poisson.PourcentageProgession.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)%" 
+                                         aria-valuenow="@poisson.PourcentageProgession.ToString("F2", System.Globalization.CultureInfo.InvariantCulture)" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </td>
                             <td>@poisson.PoidsMaxKg.ToString("N2")</td>
                             <td>@poisson.PrixAchatKg.ToString("N2") Ar</td>
                             <td>@poisson.PrixVenteKg.ToString("N2") Ar</td>

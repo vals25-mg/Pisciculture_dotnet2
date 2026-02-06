@@ -16,4 +16,14 @@ public class PoissonPoidsInfo
     public double PoidsRestantKg => PoidsMaxKg - PoidsActuelleKg;
     public double ChiffreDaffaires => PoidsActuelleKg*PrixVenteKg;
     public double ChiffreDaffairesMoinsPrixAchat => ChiffreDaffaires-PrixAchatKg*PoidsActuelleKg;
+
+    public double PourcentageProgession => PoidsActuelleKg * 100 / PoidsMaxKg;
+
+    public string getColourBgProgressBar()
+    {
+        string color = "success";
+        if (PourcentageProgession <= 25) color = "danger";
+        if (PourcentageProgession > 25 && PourcentageProgession<75) color = "warning";
+        return color;
+    }
 }

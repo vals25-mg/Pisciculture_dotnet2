@@ -59,6 +59,7 @@ public class HomeController : Controller
         ViewBag.TotalPoidsActuel = poissons.Sum(p => p.PoidsActuelleKg);
         ViewBag.TotalChiffreAffaires = poissons.Sum(p => p.ChiffreDaffaires);
         ViewBag.TotalPrixAchat = poissons.Sum(p => p.PrixAchatKg * p.PoidsActuelleKg);
+        ViewBag.NombrePoissonsTotal = poissons.Count();
     
         return View(poissons);
     }

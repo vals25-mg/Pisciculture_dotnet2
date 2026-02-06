@@ -18,34 +18,31 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
+                <ul class="navbar-nav flex-grow-1 nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Accueil</a>
+                        <a class="nav-link @Html.IsActive("Home", "Index")" asp-area="" asp-controller="Home" asp-action="Index">Accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Nourrissage" asp-action="Index">Nourrissage</a>
+                        <a class="nav-link @Html.IsActive("Nourrissage")" asp-area="" asp-controller="Nourrissage" asp-action="Index">Nourrissage</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="PoissonsDobo">Croissance</a>
+                        <a class="nav-link @Html.IsActive("Home", "PoissonsDobo")" asp-area="" asp-controller="Home" asp-action="PoissonsDobo">Croissance</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Aliment" asp-action="Index">Aliment</a>
+                        <a class="nav-link @Html.IsActive("Aliment")" asp-area="" asp-controller="Aliment" asp-action="Index">Aliment</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Race" asp-action="Index">Race</a>
+                        <a class="nav-link @Html.IsActive("Race")" asp-area="" asp-controller="Race" asp-action="Index">Race</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Dobo" asp-action="Index">Dobo</a>
+                        <a class="nav-link @Html.IsActive("Dobo")" asp-area="" asp-controller="Dobo" asp-action="Index">Dobo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="PoissonDobo" asp-action="Index">Poisson</a>
+                        <a class="nav-link @Html.IsActive("PoissonDobo")" asp-area="" asp-controller="PoissonDobo" asp-action="Index">Poisson</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="EntreVague" asp-action="Index">Entrée Poisson</a>
+                        <a class="nav-link @Html.IsActive("EntreVague")" asp-area="" asp-controller="EntreVague" asp-action="Index">Entrée Poisson</a>
                     </li>
-                    @* <li class="nav-item"> *@
-                    @*     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
-                    @* </li> *@
                 </ul>
             </div>
         </div>
