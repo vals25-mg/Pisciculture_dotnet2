@@ -22,7 +22,10 @@ namespace Pisciculture_dotnet2.Controllers
         // GET: Nourrissage
         public async Task<IActionResult> Index()
         {
-            var piscicultureDbContext = _context.Nourrissages.Include(n => n.IdAlimentNavigation).Include(n => n.IdDoboNavigation);
+            var piscicultureDbContext = _context.Nourrissages
+                .Include(n => n.IdAlimentNavigation)
+                .Include(n => n.IdDoboNavigation)
+                .OrderByDescending(n=>n.IdNourrissage);
             return View(await piscicultureDbContext.ToListAsync());
         }
 

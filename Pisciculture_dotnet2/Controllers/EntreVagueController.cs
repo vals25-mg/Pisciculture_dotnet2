@@ -49,7 +49,7 @@ namespace Pisciculture_dotnet2.Controllers
         public IActionResult Create()
         {
             ViewData["IdDobo"] = new SelectList(_context.Dobos, "IdDobo", "IdDobo");
-            ViewData["IdRace"] = new SelectList(_context.Races, "IdRace", "IdRace");
+            ViewData["IdRace"] = new SelectList(_context.Races, "IdRace", "NomRace");
             return View();
         }
 

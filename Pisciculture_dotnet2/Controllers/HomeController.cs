@@ -23,9 +23,11 @@ public class HomeController : Controller
         var benefice = PoissonDoboUtilities.getBenefice(_context, dateNourrissage);
         var chiffresAffaires = PoissonDoboUtilities.getChiffresAffaires(_context, dateNourrissage);
 
+        var ca=chiffresAffaires.Sum(x=>x.ChiffreDaffaires);
         ViewBag.DateNourrissage = dateNourrissage;
         ViewBag.Benefice = benefice;
-        ViewBag.CA = chiffresAffaires.Sum(x=>x.ChiffreDaffaires);
+        ViewBag.CA = ca;
+        ViewBag.PrixAchatTotal = ca - benefice;
 
         var model = (ChiffresAffaires: chiffresAffaires, Depenses: depenses);
 

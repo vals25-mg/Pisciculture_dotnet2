@@ -24,6 +24,15 @@
             <th>
                 PoidsMax (Kg)
             </th>
+            <th>
+                Besoin Protéine (g)
+            </th>
+            <th>
+                Besoin Glucide (g)
+            </th>
+            <th>
+                Poids Reçu (g)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -41,6 +50,15 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PoidsMax)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CroissanceRaces.First().ApportProteineG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CroissanceRaces.First().ApportGlucideG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CroissanceRaces.First().PoidsObtenuG)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdRace">Modifier</a> 

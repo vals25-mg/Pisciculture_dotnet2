@@ -1,0 +1,59 @@
+@model IEnumerable<Pisciculture_dotnet2.Models.PoissonDobo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Liste poissons</h1>
+
+@* <p> *@
+@*     <a asp-action="Create">Create New</a> *@
+@* </p> *@
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>
+            Id Poisson
+        </th>
+        <th>
+            Race
+        </th>
+        <th>Id Dobo</th>
+        <th>
+            Poids Initial (kg)
+        </th>
+        <th>Date d'entrée</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPoissonDobo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdRaceNavigation.NomRace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEntreVagueNavigation.IdDobo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PoidsInitialePoisson)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdEntreVagueNavigation.DateEntree)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PoidsInitialePoisson)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdPoissonDobo">Modifier</a>
+                @* <a asp-action="Details" asp-route-id="@item.IdPoissonDobo">Details</a> | *@
+                @* <a asp-action="Delete" asp-route-id="@item.IdPoissonDobo">Delete</a> *@
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Modification</h1>
 
 <h4>Race</h4>
 <hr />
@@ -14,34 +14,34 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdRace" />
             <div class="form-group">
-                <label asp-for="NomRace" class="control-label"></label>
+                <label asp-for="NomRace" class="control-label">Nom</label>
                 <input asp-for="NomRace" class="form-control" />
                 <span asp-validation-for="NomRace" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PrixAchatKg" class="control-label"></label>
-                <input asp-for="PrixAchatKg" class="form-control" />
+                <label asp-for="PrixAchatKg" class="control-label">Prix Achat Kg (Ar)</label>
+                <input asp-for="PrixAchatKg" type="number" class="form-control" />
                 <span asp-validation-for="PrixAchatKg" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PrixVenteKg" class="control-label"></label>
-                <input asp-for="PrixVenteKg" class="form-control" />
+                <label asp-for="PrixVenteKg" class="control-label">Prix Vente Kg (Ar)</label>
+                <input asp-for="PrixVenteKg" type="number" class="form-control" />
                 <span asp-validation-for="PrixVenteKg" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PoidsMax" class="control-label"></label>
-                <input asp-for="PoidsMax" class="form-control" />
+                <label asp-for="PoidsMax" class="control-label">Poids max (kg)</label>
+                <input asp-for="PoidsMax" type="number" class="form-control" />
                 <span asp-validation-for="PoidsMax" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group mt-3">
+                <input type="submit" value="Modifier" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Revenir à la liste</a>
 </div>
 
 @section Scripts {

@@ -21,7 +21,9 @@ namespace Pisciculture_dotnet2.Controllers
         // GET: Race
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Races.ToListAsync());
+            return View(await _context.Races
+                .Include(r => r.CroissanceRaces)
+                .ToListAsync());
         }
 
         // GET: Race/Details/5

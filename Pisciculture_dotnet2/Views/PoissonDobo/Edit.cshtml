@@ -1,0 +1,44 @@
+@model Pisciculture_dotnet2.Models.PoissonDobo
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Modification</h1>
+
+<h4>Poisson</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdPoissonDobo" />
+            @* <div class="form-group"> *@
+            @*     <label asp-for="IdEntreVague" class="control-label"></label> *@
+            @*     <select asp-for="IdEntreVague" class="form-control" asp-items="ViewBag.IdEntreVague"></select> *@
+            @*     <span asp-validation-for="IdEntreVague" class="text-danger"></span> *@
+            @* </div> *@
+            <div class="form-group">
+                <label asp-for="IdRace" class="control-label">Race</label>
+                <select asp-for="IdRace" class="form-control" asp-items="ViewBag.IdRace"></select>
+                <span asp-validation-for="IdRace" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PoidsInitialePoisson" class="control-label">Poids initial (kg)</label>
+                <input asp-for="PoidsInitialePoisson" type="number" class="form-control" />
+                <span asp-validation-for="PoidsInitialePoisson" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Modifier" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Revenir</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

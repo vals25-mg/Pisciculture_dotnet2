@@ -13,26 +13,26 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdDobo" class="control-label"></label>
+                <label asp-for="IdDobo" class="control-label">Dobo</label>
                 <select asp-for="IdDobo" class ="form-control" asp-items="ViewBag.IdDobo"></select>
             </div>
             <div class="form-group">
-                <label asp-for="DateEntree" class="control-label"></label>
-                <input asp-for="DateEntree" class="form-control" />
+                <label asp-for="DateEntree" class="control-label">Date Entree</label>
+                <input asp-for="DateEntree" type="date" class="form-control" />
                 <span asp-validation-for="DateEntree" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdRace" class="control-label"></label>
+                <label asp-for="IdRace" class="control-label">Race</label>
                 <select asp-for="IdRace" class ="form-control" asp-items="ViewBag.IdRace"></select>
             </div>
             <div class="form-group">
-                <label asp-for="NombrePoissons" class="control-label"></label>
-                <input asp-for="NombrePoissons" class="form-control" />
+                <label asp-for="NombrePoissons" class="control-label">Nombre Poissons</label>
+                <input asp-for="NombrePoissons" type="number" class="form-control" />
                 <span asp-validation-for="NombrePoissons" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PoidsInitialePoisson" class="control-label"></label>
-                <input asp-for="PoidsInitialePoisson" class="form-control" />
+                <label asp-for="PoidsInitialePoisson" class="control-label">Poids Initiale Poisson (kg)</label>
+                <input asp-for="PoidsInitialePoisson" type="number" class="form-control" />
                 <span asp-validation-for="PoidsInitialePoisson" class="text-danger"></span>
             </div>
             <div class="form-group">

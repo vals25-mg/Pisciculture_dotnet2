@@ -56,6 +56,13 @@ dotnet aspnet-codegenerator controller \
 --useDefaultLayout \
 --referenceScriptLibraries
 
+dotnet aspnet-codegenerator controller \
+-name PoissonDoboController \
+-m PoissonDobo \
+-dc PiscicultureDbContext \
+--relativeFolderPath Controllers \
+--useDefaultLayout \
+--referenceScriptLibraries
 
 ## Scaffold View:
 dotnet ef dbcontext scaffold \

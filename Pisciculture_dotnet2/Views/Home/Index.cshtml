@@ -21,21 +21,61 @@
             </div>
         </div>
     </form>
-    
-    <div class="alert @(ViewBag.Benefice >= 0 ? "alert-success" : "alert-danger") mb-4">
-        <h4 class="mb-0">
-            Bénéfice Total:
-            <strong>
-                @if (ViewBag.Benefice != null)
-                {
-                    @(((double)ViewBag.Benefice).ToString("N2")) <text>Ar</text>
-                }
-                else
-                {
-                    <text>0.00 Ar</text>
-                }
-            </strong>
-        </h4>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card border-primary">
+                <div class="card-body text-center">
+                    <h6 class="text-muted mb-2">Chiffre d'Affaires Total</h6>
+                    <h3 class="text-primary mb-0">
+                        @if (ViewBag.CA != null)
+                        {
+                            @(((double)ViewBag.CA).ToString("N2")) <text>Ar</text>
+                        }
+                        else
+                        {
+                            <text>0.00 Ar</text>
+                        }
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-warning">
+                <div class="card-body text-center">
+                    <h6 class="text-muted mb-2">Prix d'Achat Total</h6>
+                    <h3 class="text-warning mb-0">
+                        @if (ViewBag.PrixAchatTotal != null)
+                        {
+                            @(((double)ViewBag.PrixAchatTotal).ToString("N2")) <text>Ar</text>
+                        }
+                        else
+                        {
+                            <text>0.00 Ar</text>
+                        }
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-@(ViewBag.Benefice >= 0 ? "success" : "danger")">
+                <div class="card-body text-center">
+                    <h6 class="text-muted mb-2">Bénéfice Total</h6>
+                    <h3 class="text-@(ViewBag.Benefice >= 0 ? "success" : "danger") mb-0">
+                        @if (ViewBag.Benefice != null)
+                        {
+                            @(((double)ViewBag.Benefice).ToString("N2")) <text>Ar</text>
+                        }
+                        else
+                        {
+                            <text>0.00 Ar</text>
+                        }
+                    </h3>
+                </div>
+            </div>
+        </div>
     </div>
 
     @if (Model.ChiffresAffaires != null && Model.ChiffresAffaires.Any())
