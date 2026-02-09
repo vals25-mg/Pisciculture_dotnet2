@@ -5,7 +5,7 @@ namespace Pisciculture_dotnet2.Utilities;
 
 public static class PoissonDoboUtilities
 {
-    public static List<PoissonDobo> getPoissonsByIdDobo(PiscicultureDbContext dbContext, string id_dobo)
+    public static List<PoissonDobo> getPoissonsByIdDobo(PiscicultureDbContext dbContext, string id_dobo, DateOnly? dateFiltre= null)
     {
         return dbContext.PoissonDobos
             .Include(p => p.CroissancePoissonDobos)  // Charger les croissances
@@ -16,6 +16,7 @@ public static class PoissonDoboUtilities
                 e => e.IdEntreVague,
                 (p, e) => p
             )
+            .Where(p=>!dateFiltre.HasValue || p.IdEntreVagueNavigation.DateEntree<=dateFiltre)
             .ToList();
     }
     
@@ -44,8 +45,9 @@ public static class PoissonDoboUtilities
     
     public static List<PoissonPoidsInfo> getAllPoissonsPoidsByIdDobo(PiscicultureDbContext dbContext, string id_dobo, DateOnly? dateFiltre = null)
     {
-        var poissonsExistants = getPoissonsByIdDobo(dbContext, id_dobo);
-        return poissonsExistants.Select(
+        var poissonsExistants = getPoissonsByIdDobo(dbContext, id_dobo,dateFiltre);
+        return poissonsExistants
+            .Select(
                 p=> new PoissonPoidsInfo
                 {
                     IdRace = p.IdRace.Value,

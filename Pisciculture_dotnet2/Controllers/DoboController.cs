@@ -38,7 +38,7 @@ namespace Pisciculture_dotnet2.Controllers
             try
             {
                 DoboUtilities.ReinitialiserDobo(_context, id);
-                TempData["SuccessMessage"] = $"Le dobo {id} a été réinitialisé avec succès.";
+                TempData["SuccessMessageDobo"] = $"Le dobo {id} a été réinitialisé avec succès.";
             }
             catch (Exception ex)
             {

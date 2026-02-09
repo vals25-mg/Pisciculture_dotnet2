@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Pisciculture_dotnet2.Models;
+using Pisciculture_dotnet2.Utilities;
+using Pisciculture_dotnet2.ViewModels;
 
 namespace Pisciculture_dotnet2.Controllers
 {
@@ -55,17 +57,38 @@ namespace Pisciculture_dotnet2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdRace,NomRace,PrixAchatKg,PrixVenteKg,PoidsMax")] Race race)
+        public async Task<IActionResult> Create(RaceCreateViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(race);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(race);
-        }
+                try
+                {
+                    var race = new Race
+                    {
+                        NomRace = viewModel.NomRace,
+                        PrixAchatKg = viewModel.PrixAchatKg,
+                        PrixVenteKg = viewModel.PrixVenteKg,
+                        PoidsMax = viewModel.PoidsMax
+                    };
 
+                    RaceUtilities.CreateRaceWithCroissance(
+                        _context,
+                        race,
+                        viewModel.ApportProteineG,
+                        viewModel.ApportGlucideG,
+                        viewModel.PoidsObtenuG
+                    );
+
+                    TempData["SuccessMessageRace"] = "Race créée avec succès.";
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", $"Erreur lors de la création : {ex.Message}");
+                }
+            }
+            return View(viewModel);
+        }
         // GET: Race/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -74,22 +97,41 @@ namespace Pisciculture_dotnet2.Controllers
                 return NotFound();
             }
 
-            var race = await _context.Races.FindAsync(id);
+            var race = await _context.Races
+                .Include(r => r.CroissanceRaces)
+                .FirstOrDefaultAsync(r => r.IdRace == id);
+        
             if (race == null)
             {
                 return NotFound();
             }
-            return View(race);
+
+            var croissance = race.CroissanceRaces.FirstOrDefault();
+    
+            var viewModel = new RaceEditViewModel
+            {
+                IdRace = race.IdRace,
+                NomRace = race.NomRace,
+                PrixAchatKg = race.PrixAchatKg,
+                PrixVenteKg = race.PrixVenteKg,
+                PoidsMax = race.PoidsMax,
+                ApportProteineG = croissance?.ApportProteineG ?? 0,
+                ApportGlucideG = croissance?.ApportGlucideG ?? 0,
+                PoidsObtenuG = croissance?.PoidsObtenuG ?? 0
+            };
+
+            return View(viewModel);
         }
+
 
         // POST: Race/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdRace,NomRace,PrixAchatKg,PrixVenteKg,PoidsMax")] Race race)
+        public async Task<IActionResult> Edit(int id, RaceEditViewModel viewModel)
         {
-            if (id != race.IdRace)
+            if (id != viewModel.IdRace)
             {
                 return NotFound();
             }
@@ -98,25 +140,34 @@ namespace Pisciculture_dotnet2.Controllers
             {
                 try
                 {
-                    _context.Update(race);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RaceExists(race.IdRace))
+                    var race = new Race
                     {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(race);
-        }
+                        IdRace = viewModel.IdRace,
+                        NomRace = viewModel.NomRace,
+                        PrixAchatKg = viewModel.PrixAchatKg,
+                        PrixVenteKg = viewModel.PrixVenteKg,
+                        PoidsMax = viewModel.PoidsMax
+                    };
 
+                    RaceUtilities.UpdateRaceWithCroissance(
+                        _context,
+                        race,
+                        viewModel.ApportProteineG,
+                        viewModel.ApportGlucideG,
+                        viewModel.PoidsObtenuG
+                    );
+
+                    TempData["SuccessMessageRace"] = "Race modifiée avec succès.";
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", $"Erreur lors de la modification : {ex.Message}");
+                }
+            }
+    
+            return View(viewModel);
+        }
         // GET: Race/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

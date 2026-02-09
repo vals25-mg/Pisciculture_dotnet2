@@ -53,7 +53,7 @@ namespace Pisciculture_dotnet2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdAliment,NomAliment,PourcentageProteine,PourcentageGlucide,PrixAchatKg")] Aliment aliment)
+        public async Task<IActionResult> Create([Bind("NomAliment,PourcentageProteine,PourcentageGlucide,PrixAchatKg")] Aliment aliment)
         {
             if (ModelState.IsValid)
             {

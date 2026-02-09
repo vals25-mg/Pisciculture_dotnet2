@@ -66,8 +66,27 @@ namespace Pisciculture_dotnet2.Controllers
         {
             if (ModelState.IsValid)
             {
-                NourrissageUtilities.nourrirPoissons(_context,nourrissage);
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    var entree_vagues = _context.EntreVagues
+                        .Where(e => e.IdDobo == nourrissage.IdDobo && e.DateEntree <= nourrissage.DateNourrissage);
+            
+                    if (entree_vagues.Count() == 0)
+                    {
+                        ModelState.AddModelError("", "Aucune entrée de vague trouvée pour "+nourrissage.IdDobo+" à cette date. Veuillez d'abord enregistrer une entrée de poissons.");
+                        ViewData["IdAliment"] = new SelectList(_context.Aliments, "IdAliment", "NomAliment", nourrissage.IdAliment);
+                        ViewData["IdDobo"] = new SelectList(_context.Dobos, "IdDobo", "IdDobo", nourrissage.IdDobo);
+                        return View(nourrissage);
+                    }
+            
+                    NourrissageUtilities.nourrirPoissons(_context, nourrissage);
+                    TempData["SuccessMessageNourrissage"] = "Nourrissage enregistré avec succès.";
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", $"Erreur lors de l'enregistrement : {ex.Message}");
+                }
             }
             ViewData["IdAliment"] = new SelectList(_context.Aliments, "IdAliment", "NomAliment", nourrissage.IdAliment);
             ViewData["IdDobo"] = new SelectList(_context.Dobos, "IdDobo", "IdDobo", nourrissage.IdDobo);

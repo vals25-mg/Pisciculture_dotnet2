@@ -111,12 +111,12 @@
             </tfoot>
         </table>
     }
-    else
-    {
-        <div class="alert alert-info mb-4">
-            Aucun chiffre d'affaires disponible pour cette période.
-        </div>
-    }
+    @* else *@
+    @* { *@
+    @*     <div class="alert alert-info mb-4"> *@
+    @*         Aucun chiffre d'affaires disponible pour cette période. *@
+    @*     </div> *@
+    @* } *@
     
     @if (Model.Depenses != null && Model.Depenses.Any())
     {
@@ -145,10 +145,10 @@
             </tfoot>
         </table>
     }
-    else
-    {
-        <div class="alert alert-info">
-            Aucune donnée disponible pour cette période.
-        </div>
-    }
+    @* else *@
+    @* { *@
+    @*     <div class="alert alert-info"> *@
+    @*         Aucune donnée disponible pour cette période. *@
+    @*     </div> *@
+    @* } *@
 </div>
