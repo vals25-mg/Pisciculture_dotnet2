@@ -115,6 +115,57 @@ VALUES (3,0,1,5),
        (3,0,2,10),
        (3,0,3,15);
 
+alter table nourrissage 
+    add column reste double precision default 0;
+
+alter table poisson_dobo
+    add column etat int default 0;
+
+alter table poisson_dobo
+    drop column id_entre_vague;
+
+alter table dobo
+    add column nombre_poissons_max int default 15;
+
+drop trigger trg_insert_poissons on entre_vague;
+
+drop function fn_insert_poissons();
+
+alter table entre_vague
+    drop column nombre_poissons;
+
+alter table entre_vague
+    drop column poids_initiale_poisson;
+
+alter table entre_vague
+    drop column id_race;
+
+alter table entre_vague
+    add column id_poisson_dobo varchar(20);
+
+alter table entre_vague
+    add foreign key (id_poisson_dobo) references poisson_dobo(id_poisson_dobo);
+
+alter table entre_vague
+    add column date_sortie date default null;
+
+create table poids_limite_dobo(
+    id_poids_limite_dobo serial primary key ,
+    id_dobo varchar(30),
+    poids_limite_kg double precision default 5,
+    foreign key (id_dobo) references dobo(id_dobo)
+);
+
+insert into poids_limite_dobo (id_dobo, poids_limite_kg) 
+VALUES ('DOBO1',0.7),
+('DOBO2',5),
+('DOBO3',4),
+('DOBO4',6);
+
+                                                    
+
+
+
 
 
 
